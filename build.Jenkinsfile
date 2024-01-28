@@ -7,12 +7,15 @@ pipeline {
                 sh 'ls'
                 sh 'echo building....'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
-                sh '''
-                   docker login -u $USERNAME -p $PASSWORD
-                   docker build selotapetm/roberta-cicd
-                   docker tag selotapetm/roberta-cicd selotapetm/roberta-cicd:1.0
-                   docker push selotapetm/roberta-cicd:1.0
-                   '''
+                {
+                    sh '''
+                       docker login -u $USERNAME -p $PASSWORD
+                       docker build selotapetm/roberta-cicd
+                       docker tag selotapetm/roberta-cicd selotapetm/roberta-cicd:1.0
+                       docker push selotapetm/roberta-cicd:1.0
+                       '''
+                }
+
             }
         }
     }

@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'ls'
-                sh 'echo building...'
+                sh 'echo building....'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
                 sh '''
                    docker login -u $USERNAME -p $PASSWORD

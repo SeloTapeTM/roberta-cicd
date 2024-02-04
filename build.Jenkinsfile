@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+        timestamps()
+    }
 
     environment {
         DH_NAME = "selotapetm"

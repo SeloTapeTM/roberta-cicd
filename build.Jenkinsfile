@@ -20,12 +20,6 @@ pipeline {
                 }
 
             }
-            post {
-                always{
-                    sh 'docker image prune -a --force --filter "until=24h"'
-                }
-            }
-
         }
         stage('Trigger Deploy') {
             steps {
@@ -37,6 +31,7 @@ pipeline {
     }
     post {
         always {
+            sh 'docker image prune -a --force --filter "until=24h"'
             cleanWs()
         }
     }

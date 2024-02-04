@@ -6,6 +6,7 @@ pipeline {
 
     environment {
         DH_NAME = "selotapetm"
+        FULL_VER = "0.0.$BUILD_NUMBER"
     }
     stages {
         stage('Build') {
@@ -14,8 +15,14 @@ pipeline {
                 {
                     sh '''
                     docker login -u $USERNAME -p $PASSWORD
-                    docker build -t $DH_NAME/roberta-cicd:0.0.$BUILD_NUMBER .
-                    docker push $DH_NAME/roberta-cicd:0.0.$BUILD_NUMBER
+                    docker build -t $DH_NAME/roberta-cicd:$FULL_VER .
+                    docker push $DH_NAME/roberta-cicd:$FULL_VER
+                    '''
+                }
+                withCredentials([secretText(credentialsId: 'snyk-token', secretVariable: 'SNYK_TOKEN')])
+                {
+                    sh '''
+                    snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile
                     '''
                 }
 
@@ -24,7 +31,7 @@ pipeline {
         stage('Trigger Deploy') {
             steps {
                 build job: 'roberta-deploy', wait: false, parameters: [
-                    string(name: 'ROBERTA_IMAGE_URL', value: "$DH_NAME/roberta-cicd:0.0.$BUILD_NUMBER")
+                    string(name: 'ROBERTA_IMAGE_URL', value: "$DH_NAME/roberta-cicd:$FULL_VER")
                     ]
                 }
             }

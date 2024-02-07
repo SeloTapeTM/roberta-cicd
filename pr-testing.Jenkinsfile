@@ -2,9 +2,22 @@ pipeline {
     agent any
 
     stages {
+        stage('Installs') {
+            steps {
+                sh '''
+                pip install --upgrade pip
+                pip install pytest junit
+                '''
+            }
+        }
         stage('Unittest') {
             steps {
-                sh 'echo "testing"'
+                sh 'python3 -m pytest --junitxml results.xml tests'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'results.xml'
+                }
             }
         }
         stage('Lint') {

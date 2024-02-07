@@ -22,7 +22,11 @@ pipeline {
                 }
                 withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')])
                 {
-                    sh 'snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile'
+                    sh '''
+                    export SNYK_TOKEN
+                    echo $SNYK_TOKEN
+                    snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile
+                    '''
                 }
 
             }

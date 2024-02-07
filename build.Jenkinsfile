@@ -19,7 +19,7 @@ pipeline {
                     docker push $DH_NAME/roberta-cicd:$FULL_VER
                     '''
                 }
-                withCredentials([secretText(credentialsId: 'snyk-token', secretVariable: 'SNYK_TOKEN')])
+                withCredentials([string(credentialsId: 'snyk-token', secretVariable: 'SNYK_TOKEN')])
                 {
                     sh '''
                     snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile

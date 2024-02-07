@@ -18,6 +18,8 @@ pipeline {
                     docker login -u $USERNAME -p $PASSWORD
                     docker build -t $DH_NAME/roberta-cicd:$FULL_VER .
                     docker push $DH_NAME/roberta-cicd:$FULL_VER
+                    docker system prune -a -f
+                    docker builder prune -a -f
                     '''
                 }
                 withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')])

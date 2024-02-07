@@ -24,7 +24,7 @@ class TestCacheFunctions(unittest.TestCase):
         self.assertEqual(result, value)
 
     def test_put_in_cache_exceeding_capacity(self):
-        for i in range(2 * CACHE_MAX_SIZE):
+        for i in range(2*CACHE_MAX_SIZE):
             put_in_cache(f'new_key{i}', f'new_value{1}')
 
         result = get_from_cache('existing_key')

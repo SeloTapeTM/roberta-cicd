@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh '''
                 pip install --upgrade pip
-                pip install pytest junit
+                pip install pytest
                 '''
             }
         }

@@ -24,8 +24,8 @@ pipeline {
                 {
                     sh '''
                     export SNYK_TOKEN
-                    snyk ignore 'SNYK-PYTHON-TRANSFORMERS-6135747'
-                    snyk ignore 'SNYK-DEBIAN11-ZLIB-6008961'
+                    snyk ignore -d 'SNYK-PYTHON-TRANSFORMERS-6135747'
+                    snyk ignore -d 'SNYK-DEBIAN11-ZLIB-6008961'
                     snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile --severity-threshold=critical
                     '''
                 }

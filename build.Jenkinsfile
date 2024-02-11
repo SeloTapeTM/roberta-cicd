@@ -25,7 +25,7 @@ pipeline {
                     sh '''
                     export SNYK_TOKEN
                     echo $SNYK_TOKEN
-                    snyk container test $DH_NAME/roberta-cicd:$FULL_VER
+                    snyk container test $DH_NAME/roberta-cicd:$FULL_VER --file=Dockerfile
                     '''
                 }
 

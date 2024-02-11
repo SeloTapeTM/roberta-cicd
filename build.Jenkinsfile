@@ -24,6 +24,7 @@ pipeline {
                 {
                     sh '''
                     export SNYK_TOKEN
+                    echo "Good luck!"
                     snyk auth $SNYK_TOKEN
                     snyk ignore --id='SNYK-PYTHON-TRANSFORMERS-6135747'
                     snyk ignore --id='SNYK-DEBIAN11-ZLIB-6008961'

@@ -1,6 +1,5 @@
 import unittest
-from cache import get_from_cache, put_in_cache, cache_max_size
-from cache import put_in_cache
+from cache import get_from_cache, put_in_cache, CACHE_MAX_SIZE
 
 
 class TestCacheFunctions(unittest.TestCase):
@@ -25,7 +24,7 @@ class TestCacheFunctions(unittest.TestCase):
         self.assertEqual(result, value)
 
     def test_put_in_cache_exceeding_capacity(self):
-        for i in range(2*cache_max_size):
+        for i in range(2*CACHE_MAX_SIZE):
             put_in_cache(f'new_key{i}', f'new_value{1}')
 
         result = get_from_cache('existing_key')

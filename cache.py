@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 cache = OrderedDict()
-cache_max_size = 500
+CACHE_MAX_SIZE = 600
 
 
 def get_from_cache(key):
@@ -13,6 +13,6 @@ def get_from_cache(key):
 
 
 def put_in_cache(key, value):
-    if len(cache) >= cache_max_size:
+    if len(cache) >= CACHE_MAX_SIZE:
         cache.popitem(last=False)
     cache[key] = value
